@@ -1,5 +1,6 @@
 <template >
-  <div >
+  <div>
+
     <el-container style="height: 700px; border: 1px solid #eee">
       <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
         <el-menu :default-openeds="['1', '3']">
@@ -85,11 +86,14 @@
               label="系统地址"
               width="120">
               <template slot-scope="id"  >
-                <el-link  id="id.row.id" type="primary" target="_blank" v-on:click="skip(id.row.address,id)" >{{ id.row.address}}</el-link>
+<!--                <el-link  id="id.row.id" type="primary" target="_blank" v-on:click="skip(id.row.address,id)" >{{ id.row.address}}</el-link>-->
 
-<!--                <router-link to="/orderInfo" content="链接" target="_blank">{{ id.row.address}}</router-link>-->
+                <el-link  id="id.row.id" type="primary" target="_blank"  v-for="(user,i) in id.row.address":key="i"  v-on:click="skip(user.website,i)"  :underline="false" >{{ user.name}}</el-link>
+
+<!--                <el-link  id="id.row.id" type="primary" target="_blank"  v-for="(user,i) in id.row.address":key="i" :href="user.website" :underline="false" >{{ user.name}}</el-link>-->
+
+
               </template>
-
             </el-table-column>
             <el-table-column
               prop="person"
@@ -100,12 +104,6 @@
               prop="id"
               label="操作"
               width="180"  >
-
-
-
-
-
-
               <template slot-scope="id"  >
                 <el-col :xs="8" :sm="8">
                   <el-button size="mini" class="el-icon-edit" ></el-button>
@@ -118,47 +116,29 @@
                   <el-dialog title="新增测试系统" :visible.sync="dialogFormVisible" label-width="100px"  >
                     <el-form :inline="true">
                       <el-form-item  label="单位名称" >
-                        <el-input  v-model="componentName" style="width: 550px" ></el-input>
+                        <el-input  v-model="testlistData.componentName" style="width: 550px" ></el-input>
                       </el-form-item>
-                      <el-form-item label="地址名称"  >
-                        <el-input  placeholder="请输入内容" style="width: 100px">
-                        </el-input>
-                      </el-form-item>
-                      <el-form-item label="测试地址"   >
-                        <el-input v-model="address" placeholder="请输入内容" style="width: 350px">
-                        </el-input>
-                      </el-form-item>
+                      <el-form v-for="(item,index) in testlistData.address" :key="index"  >
+                        <el-form-item   label="地址名称">
+                          <el-input v-model="testlistData.address[index].name"  placeholder="请输入名称" style="width: 100px" @input="change(e)">
+                          </el-input>
+                        </el-form-item>
+                        <el-form-item  label="测试地址">
+                          <el-input v-model="testlistData.address[index].website" placeholder="请输入测试地址" style="width: 350px" @input="change(e)" >
+                          </el-input>
+                        </el-form-item>
+<!--                        <el-button type="success" size="mini"  @click="addadressitem">添加</el-button>-->
+                        <el-button type="danger" size="medium"  @click="deleteadressitem(index)" >删除</el-button>
+                      </el-form>
 
 
-
-
-
-
-
-<!--                      <el-form-item label="地址" >-->
-<!--                        <el-input >-->
-<!--                        </el-input>-->
-<!--                      </el-form-item>-->
-
-<!--                      <div class="moreRules">-->
-<!--                        <div class="moreRulesIn">-->
-<!--                          <el-form-item class="rules" label="测试地址名称:" >-->
-<!--                            <el-input ></el-input>-->
-<!--                          </el-form-item>-->
-<!--                          <el-form-item class="rules" label="地址:" >-->
-<!--                            <el-input></el-input>-->
-<!--                          </el-form-item>-->
-<!--                          <el-button disabled="isReadonly">删除</el-button>-->
-<!--                        </div>-->
-<!--                      </div>-->
+                    <el-form>
                       <el-form-item >
-                        <el-button type="text" class="addadress">添加更多</el-button>
+                        <el-button type="text" class="addadress" @click="addadressitem">添加更多</el-button>
                       </el-form-item>
-
-
+                    </el-form>
                       <el-form-item label="测试负责人" >
-                        <el-select value-key="label" v-model="person"  placeholder="请选择测试负责人">
-<!--                          <el-option label="韦金节" value="韦金节"></el-option>-->
+                        <el-select value-key="label" v-model="testlistData.person"  placeholder="请选择测试负责人">
                           <el-option
                             v-for="item in options"
                             :key="item.value"
@@ -168,21 +148,13 @@
                         </el-select>
                       </el-form-item>
                     </el-form>
-
-
-
                     <div slot="footer" class="dialog-footer">
                       <el-button @click="dialogFormVisible = false">取 消</el-button>
                       <el-button type="primary" @click="handleSave">确 定</el-button>
                     </div>
                   </el-dialog>
-
-
                 </el-col>
               </template>
-
-
-
 
             </el-table-column>
           </el-table>
@@ -191,6 +163,8 @@
     </el-container>
   </div>
 </template>
+
+
 <style>
   .el-header {
     background-color: #B3C0D1;
@@ -223,11 +197,28 @@
         // tableData: Array(20).fill(item),
         tableData:[],
         componentName: '',
-        address: '',
+        // address: '',
         person: '',
         id:'',
+        address:[{
+          name:"",
+          website:"",
+        }],
 
+
+        //搜索内容
         searchContant:"",
+        //测试列表数据
+        testlistData: {
+          componentName: '',//公司名称
+          person: '',
+          id:'',
+          address:[{
+            name:"",
+            website:"",
+          }]
+        },
+
 
         options: [{
           value: '韦金节',
@@ -255,6 +246,7 @@
     },
 
       methods: {
+      //获取数据
       getdata:function()
       {
         debugger;
@@ -266,10 +258,36 @@
               }
           }
         ).then(res=>{
-
           this.tableData=res.data.result;
+          //处理数据
+          for ( let i = 0; i <this.tableData.length; i++)
+          {
+            //字符串第一次切割
+            let adresses=this.tableData[i].address.split("$");
+            let resultadress=[];
+            adresses.forEach(function(value,j)
+            {
+              let obj = {
+                name:"",
+                website:"",
+              };
+              //字符串第二次切割
+              let adressinfo=value.split(";");
+              if(adressinfo[0]===''||adressinfo[1]==='')
+              {
+                return;
+              }
+                obj.name=adressinfo[0];
+                obj.website=adressinfo[1];
+                resultadress.push(obj);
+            });
+            this.tableData[i].address= resultadress;
+            console.log( this.tableData[i].address);
+            console.log(this.tableData);
+          };
         })
       },
+        //删除
         deletelist:function(deletId)
         {
           axios.get("/API/apiDelete",{
@@ -285,16 +303,18 @@
         },
         dialogFormVisible:function(e)
         {
+
         },
+        //保存
         handleSave:function(e)
         {
-          // debugger;
+          debugger;
           axios.get("/API/apiAdd",{
             params:
               {
-                componentName:this.componentName,
-                address:this.address,
-                person:this.person,
+                componentName:this.testlistData.componentName,
+                address:this.testlistData.address,
+                person:this.testlistData.person,
               }
           }).then(res=>{
             // debugger;
@@ -304,6 +324,7 @@
           })
           alert("添加成功！");
         },
+        //搜索
         searchclick:function (e)
         {
            debugger;
@@ -322,8 +343,50 @@
         },
         skip:function (url,id)
         {
-           // debugger;
+           debugger;
           window.location.href=url;
+        },
+        addadressitem:function ()
+        {
+          let obj = {
+            name:"",
+            website:"",
+          }
+          this.testlistData.address.push(obj)
+        },
+        deleteadressitem:function (index)
+        {
+          debugger;
+          if(index==0)return;
+          this.testlistData.address.splice(index,1)
+        },
+
+        change :function(e) {
+          this.$forceUpdate()
+        },
+
+        //处理地址数据
+        getadressinfo:function (sourcedata)
+        {
+
+          tableData.forEach(function(value,i)
+          {
+
+          let adresses=tableData.address.split("$");
+          adresses.forEach(function(value,i)
+          {
+            let adressinfo=value.split(";");
+            let obj = {
+              name:"",
+              website:"",
+            };
+            obj.name=adressinfo[0];
+            obj.website=adressinfo[1];
+
+            tableData.address='';
+            tableData.address.push(obj);
+          });
+        });
         }
       }
   }

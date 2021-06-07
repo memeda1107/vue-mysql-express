@@ -35,8 +35,7 @@ class Database
       {
         sql=searchsql;
     }
-    console.log("searchcontent:"+req.query.searchContant);
-    console.log(sql);
+
     this.connection.query(sql,"%"+searchcontent+"%",
       function(err,result){
         if(err){
@@ -51,7 +50,7 @@ class Database
             result:resultData
           });
           // res.send({result:resultData});
-          console.log("查找成功");
+          // console.log("查找成功");
           console.log(resultData);
         }
       }
@@ -59,32 +58,7 @@ class Database
   }
 
 
-  //读取表中数据
-  // getHnf(req,res){
-  //   let resultData = {};
-  //
-  //   // let sql  ="select * from testlist where componeyName=? "
-  //
-  //   this.connection.query("select * from testlist",
-  //     function(err,result){
-  //       if(err){
-  //         console.log(err);
-  //       }
-  //       else
-  //       {
-  //         resultData=result;
-  //         res.json({
-  //           status:'1',
-  //           msg:'获取数据成功',
-  //           result:resultData
-  //         });
-  //         // res.send({result:resultData});
-  //         console.log("查找成功");
-  //       }
-  //     }
-  //   )
-  // }
-  //删除表中某条数据
+
 
   //删除表中的数据
   getHnfDelete(req,res){
