@@ -86,13 +86,7 @@
               label="系统地址"
               width="120">
               <template slot-scope="id"  >
-<!--                <el-link  id="id.row.id" type="primary" target="_blank" v-on:click="skip(id.row.address,id)" >{{ id.row.address}}</el-link>-->
-
-                <el-link  id="id.row.id" type="primary" target="_blank"  v-for="(user,i) in id.row.address":key="i"  v-on:click="skip(user.website,i)"  :underline="false" >{{ user.name}}</el-link>
-
-<!--                <el-link  id="id.row.id" type="primary" target="_blank"  v-for="(user,i) in id.row.address":key="i" :href="user.website" :underline="false" >{{ user.name}}</el-link>-->
-
-
+                <el-link  id="id.row.id" type="primary" target="_blank"  v-for="(user,i) in id.row.address":key="i" :href="user.website" :underline="false" >{{ user.name}}</el-link>
               </template>
             </el-table-column>
             <el-table-column
@@ -130,8 +124,6 @@
 <!--                        <el-button type="success" size="mini"  @click="addadressitem">添加</el-button>-->
                         <el-button type="danger" size="medium"  @click="deleteadressitem(index)" >删除</el-button>
                       </el-form>
-
-
                     <el-form>
                       <el-form-item >
                         <el-button type="text" class="addadress" @click="addadressitem">添加更多</el-button>
@@ -258,33 +250,7 @@
               }
           }
         ).then(res=>{
-          this.tableData=res.data.result;
-          //处理数据
-          for ( let i = 0; i <this.tableData.length; i++)
-          {
-            //字符串第一次切割
-            let adresses=this.tableData[i].address.split("$");
-            let resultadress=[];
-            adresses.forEach(function(value,j)
-            {
-              let obj = {
-                name:"",
-                website:"",
-              };
-              //字符串第二次切割
-              let adressinfo=value.split(";");
-              if(adressinfo[0]===''||adressinfo[1]==='')
-              {
-                return;
-              }
-                obj.name=adressinfo[0];
-                obj.website=adressinfo[1];
-                resultadress.push(obj);
-            });
-            this.tableData[i].address= resultadress;
-            console.log( this.tableData[i].address);
-            console.log(this.tableData);
-          };
+          this.getadressinfo(res.data.result);
         })
       },
         //删除
@@ -334,12 +300,11 @@
                 searchContant:this.searchContant
               }
           }).then(res=>{
-            // debugger;
+            debugger;
             console.log("ok")
             this.dialogFormVisible = false
-            this.tableData=res.data.result;
+            this.getadressinfo(res.data.result);
           })
-          //  alert("暂无内容！");
         },
         skip:function (url,id)
         {
@@ -364,29 +329,33 @@
         change :function(e) {
           this.$forceUpdate()
         },
-
         //处理地址数据
         getadressinfo:function (sourcedata)
         {
-
-          tableData.forEach(function(value,i)
+          this.tableData=sourcedata;
+          for ( let i = 0; i <sourcedata.length; i++)
           {
-
-          let adresses=tableData.address.split("$");
-          adresses.forEach(function(value,i)
-          {
-            let adressinfo=value.split(";");
-            let obj = {
-              name:"",
-              website:"",
-            };
-            obj.name=adressinfo[0];
-            obj.website=adressinfo[1];
-
-            tableData.address='';
-            tableData.address.push(obj);
-          });
-        });
+            //字符串第一次切割
+            let adresses=sourcedata[i].address.split("$");
+            let resultadress=[];
+            adresses.forEach(function(value,j)
+            {
+              let obj = {
+                name:"",
+                website:"",
+              };
+              //字符串第二次切割
+              let adressinfo=value.split(";");
+              if(adressinfo[0]===''||adressinfo[1]==='')
+              {
+                return;
+              }
+              obj.name=adressinfo[0];
+              obj.website=adressinfo[1];
+              resultadress.push(obj);
+            });
+            this.tableData[i].address= resultadress;
+          };
         }
       }
   }
