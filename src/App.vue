@@ -1,19 +1,10 @@
 <template>
   <div id="app">
-<!--    <Projectlist></Projectlist>-->
     <router-view/>
   </div>
 </template>
-<!--<script>-->
-<!--  import Projectlist from './components/projectlist'-->
-<!--export default {-->
-<!--  comments:-->
-<!--    {-->
-<!--      Projectlist,-->
-<!--    },-->
-<!--  name: 'App',-->
-<!--}-->
-<!--</script>-->
+
+
 
 <style>
 #app {
@@ -22,6 +13,6 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
+
