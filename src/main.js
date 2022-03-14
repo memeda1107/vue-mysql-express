@@ -7,6 +7,18 @@ import ElementUI from 'element-ui' //element-ui的全部组件
 import 'element-ui/lib/theme-chalk/index.css'//element-ui的css
 Vue.use(ElementUI) //使用elementUI
 
+import AddOrUpdate from './components/AddOrUpdate'
+
+Vue.component('addOrUpdate',AddOrUpdate)
+
+Vue.component('addOr-Update', {
+  data: function () {
+    return {
+
+    }
+  },
+  template: 'AddOrUpdate'
+})
 
 //启动的生产消息
 Vue.config.productionTip = false

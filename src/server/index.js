@@ -13,11 +13,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 let apiAdd = require('./API/addlist');
 let apiSearch = require('./API/srearch');
 let apiDelete = require('./API/deletelist');
-
+let apiEdit = require('./API/editlist');
 
 app.use('/apiAdd',apiAdd)
 app.use('/apiSearch',apiSearch)
 app.use('/apiDelete',apiDelete)
+app.use('/apiEdit',apiEdit)
 
 //测试
 app.use('/test1',function(req,res,next){

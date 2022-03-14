@@ -7,12 +7,14 @@ let jsonParser = bodyParser.json()
 
 // nodeJs接口
 router.get('/',jsonParser, function(req, res, next){
-  console.log(req.query.address);
+
   let comp=req.query.componeyName;
   let addr='';
   let per=req.query.person;
   let rek=req.query.remarks;
   let type=req.query.projectType;
+  let id=req.query.id;
+  console.log(req.query)
   req.query.address.forEach(function(value,i){
     let obj=JSON.parse(value)
     addr=addr+'$'+obj.name+';'+obj.website;
@@ -23,11 +25,10 @@ router.get('/',jsonParser, function(req, res, next){
     per,
     rek,
     type,
+    id
   ];
 
-  console.log("insert information .......")
-  console.log(req.query.remarks)
-  new Database().getHnfAdd(sqlParams,res);
+  new Database().getHnfEdit(sqlParams,res);
 });
 
 module.exports = router;

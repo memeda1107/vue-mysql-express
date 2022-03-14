@@ -1,167 +1,135 @@
 <template >
   <div>
-
-    <el-container style="height: 700px; border: 1px solid #eee">
-      <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-        <el-menu :default-openeds="['1', '3']">
-          <el-submenu index="1">
-            <template slot="title"><i class="el-icon-message"></i>导航一</template>
-            <el-menu-item-group>
-              <template slot="title">分组一</template>
-              <el-menu-item index="1-1">选项1</el-menu-item>
-              <el-menu-item index="1-2">选项2</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="分组2">
-              <el-menu-item index="1-3">选项3</el-menu-item>
-            </el-menu-item-group>
-            <el-submenu index="1-4">
-              <template slot="title">选项4</template>
-              <el-menu-item index="1-4-1">选项4-1</el-menu-item>
-            </el-submenu>
-          </el-submenu>
-          <el-submenu index="2">
-            <template slot="title"><i class="el-icon-menu"></i>导航二</template>
-            <el-menu-item-group>
-              <template slot="title">分组一</template>
-              <el-menu-item index="2-1">选项1</el-menu-item>
-              <el-menu-item index="2-2">选项2</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="分组2">
-              <el-menu-item index="2-3">选项3</el-menu-item>
-            </el-menu-item-group>
-            <el-submenu index="2-4">
-              <template slot="title">选项4</template>
-              <el-menu-item index="2-4-1">选项4-1</el-menu-item>
-            </el-submenu>
-          </el-submenu>
-          <el-submenu index="3">
-            <template slot="title"><i class="el-icon-setting"></i>导航三</template>
-            <el-menu-item-group>
-              <template slot="title">分组一</template>
-              <el-menu-item index="3-1">选项1</el-menu-item>
-              <el-menu-item index="3-2">选项2</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="分组2">
-              <el-menu-item index="3-3">选项3</el-menu-item>
-            </el-menu-item-group>
-            <el-submenu index="3-4">
-              <template slot="title">选项4</template>
-              <el-menu-item index="3-4-1">选项4-1</el-menu-item>
-            </el-submenu>
-          </el-submenu>
-        </el-menu>
-      </el-aside>
+    <el-container style=" border: 1px solid #eee">
+      <el-header style="border: #2c3e50;height: 80px"  >
+                <el-row>
+                  <el-col span="12" class="col" style="height: 80px; text-align:left;   ">
+<!--                    <span class="span" style="display:inline-block;font-size: 30px;">生产技术质量部测试系统列表</span>-->
+                  </el-col>
+<!--                  <el-col span="12" class="head2" style="height: 80px;">-->
+<!--                  </el-col>-->
+                </el-row>
+        <el-row style="height:35px;margin-top: 25px" >
+            <div >
+              <div style="float: left">
+                <el-button type="primary"  style="alignment: right;margin-left: 700px"  icon="el-icon-plus" v-on:click="addproject">添加</el-button>
+              </div>
+              <div style="float: left">
+                <el-input id="uuida9937b2c-fb4d-4ea7-84a2-0cca76828ea0"  v-model="searchContant"  style="width: 400px; height: 50px;alignment: right; font-size: 12px;margin-left: 30px"placeholder="请输入单位名称" ></el-input>
+              </div>
+              <div style="float: left">
+                <el-button id="uuid5dd302a9-5b35-40d7-9fb1-44449c8a4226"   style="alignment: left;margin-left: 20px" type="primary" icon="el-icon-search"  v-on:click="searchclick">搜索</el-button>
+              </div>
+            </div>
+        </el-row>
+        <el-divider></el-divider>
+      </el-header>
       <el-container>
-        <el-header   >
-          <el-row>
-            <el-col :xs="8" :sm="8" style="text-align: left; font-size: 25px">
-              <span>技术质量部测试系统列表</span>
-            </el-col>
-            <el-col :xs="8" :sm="8" >
-            </el-col>
-            <el-col :xs="8" :sm="8">
-              <el-col :xs="20" :sm="20">
-                <el-input id="uuida9937b2c-fb4d-4ea7-84a2-0cca76828ea0"  v-model="searchContant"  style="height: 50px;alignment: left; font-size: 12px"placeholder="请输入内容"></el-input>
-              </el-col>
-              <el-col :xs="4" :sm="4">
-                <el-button id="uuid5dd302a9-5b35-40d7-9fb1-44449c8a4226" style="margin-left:5px;alignment: left" type="primary" v-on:click="searchclick">搜索</el-button>
-              </el-col>
-            </el-col>
-          </el-row>
-          <el-row>
-          </el-row>
-        </el-header>
-        <el-main >
+        <el-aside width="180px"style="background-color: rgb(238, 241, 246);margin-top: 15px" >
+          <el-menu :default-openeds="['1', '3']" style="text-align: left;">
+            <el-menu-item index="1" v-model="projectType" v-on:click="slecttype(projectType='演示专用系统')" >
+              <i class="el-icon-document"></i>
+              <span slot="title">演示专用系统</span>
+            </el-menu-item>
+            <el-menu-item index="2" v-model="projectType" v-on:click="slecttype(projectType='综合管理系统')">
+              <i class="el-icon-menu"></i>
+              <span slot="title">综合管理系统</span>
+            </el-menu-item>
+
+            <el-menu-item index="3" v-model="projectType" v-on:click="slecttype(projectType='广西院系统')">
+              <i class="el-icon-s-home"></i>
+              <span slot="title">广西院系统</span>
+            </el-menu-item>
+            <el-menu-item index="4"  v-model="projectType" v-on:click="slecttype(projectType='图档系统')">
+              <i class="el-icon-notebook-2"></i>
+              <span slot="title">图档系统</span>
+            </el-menu-item>
+            <el-menu-item index="5"  v-model="projectType" v-on:click="slecttype(projectType='办公和网站')">
+              <i class="el-icon-user-solid"></i>
+              <span slot="title">办公和网站</span>
+            </el-menu-item>
+            <el-menu-item index="6" v-model="projectType" v-on:click="slecttype(projectType='移动APP')">
+              <i class="el-icon-phone"></i>
+              <span slot="title">移动APP</span>
+            </el-menu-item>
+            <el-menu-item index="7" v-model="projectType" v-on:click="slecttype(projectType='其他系统')">
+              <i class="el-icon-s-order"></i>
+              <span slot="title">其他系统</span>
+            </el-menu-item>
+            <el-menu-item index="8"  v-model="projectType" v-on:click="slecttype(projectType='禅道')">
+              <i class="el-icon-s-help"></i>
+              <span slot="title">禅道</span>
+            </el-menu-item>
+            <el-menu-item index="9" v-model="projectType" v-on:click="slecttype(projectType='界面规范示例')">
+              <i class="el-icon-upload"></i>
+              <span slot="title">界面规范示例</span>
+            </el-menu-item>
+            <el-menu-item index="10" v-model="projectType" v-on:click="slecttype(projectType='内部研发')">
+              <i class="el-icon-s-platform"></i>
+              <span slot="title">内部研发</span>
+            </el-menu-item>
+          </el-menu>
+        </el-aside>
+        <el-main   style="width:100%">
           <el-table
             :data="tableData"
-            border
-            style="width: 100%" >
+            stripe
+            style="width: 100%" :row-style="{height:'15px'}" :cell-style="{padding:'5px'}">
             <el-table-column
               prop="componeyName"
               label="单位名称"
-              width="150">
+              width="400" header-align="center">
             </el-table-column>
             <el-table-column
               prop="address"
               label="系统地址"
-              width="120">
+              header-align="center">
               <template slot-scope="id"  >
-                <el-link  id="id.row.id" type="primary" target="_blank"  v-for="(user,i) in id.row.address":key="i" :href="user.website" :underline="false" >{{ user.name}}</el-link>
+                <el-link  id="id.row.id" type="primary" target="_blank"  v-for="(user,i) in id.row.address":key="i" :href="user.website" :underline="false" >{{ user.name+'、'}}</el-link>
               </template>
             </el-table-column>
             <el-table-column
               prop="person"
               label="测试负责人"
-              width="120">
+              width="100" header-align="center">
+            </el-table-column>
+            <el-table-column
+              prop="remarks"
+              label="备注"
+              width="150" header-align="center">
             </el-table-column>
             <el-table-column
               prop="id"
               label="操作"
-              width="180"  >
+              width="170" header-align="center" >
               <template slot-scope="id"  >
                 <el-col :xs="8" :sm="8">
-                  <el-button size="mini" class="el-icon-edit" ></el-button>
+                  <el-button type="primary" size="mini" class="el-icon-edit"  v-on:click="editlist(id.row,'edit')"></el-button>
                 </el-col>
                 <el-col :xs="8" :sm="8">
-                  <el-button id="b1"  size="mini" class="el-icon-delete"   prop="id" v-on:click="deletelist(id.row.id)" ></el-button>
+                  <el-button id="b1" type="danger"  size="mini" class="el-icon-delete"   prop="id" v-on:click="deletelist(id.row.id)" ></el-button>
                 </el-col>
                 <el-col :xs="8" :sm="8">
-                  <el-button size="mini" class="el-icon-plus" v-on:click="dialogFormVisible=true"></el-button>
-                  <el-dialog title="新增测试系统" :visible.sync="dialogFormVisible" label-width="100px"  >
-                    <el-form :inline="true">
-                      <el-form-item  label="单位名称" >
-                        <el-input  v-model="testlistData.componentName" style="width: 550px" ></el-input>
-                      </el-form-item>
-                      <el-form v-for="(item,index) in testlistData.address" :key="index"  >
-                        <el-form-item   label="地址名称">
-                          <el-input v-model="testlistData.address[index].name"  placeholder="请输入名称" style="width: 100px" @input="change(e)">
-                          </el-input>
-                        </el-form-item>
-                        <el-form-item  label="测试地址">
-                          <el-input v-model="testlistData.address[index].website" placeholder="请输入测试地址" style="width: 350px" @input="change(e)" >
-                          </el-input>
-                        </el-form-item>
-<!--                        <el-button type="success" size="mini"  @click="addadressitem">添加</el-button>-->
-                        <el-button type="danger" size="medium"  @click="deleteadressitem(index)" >删除</el-button>
-                      </el-form>
-                    <el-form>
-                      <el-form-item >
-                        <el-button type="text" class="addadress" @click="addadressitem">添加更多</el-button>
-                      </el-form-item>
-                    </el-form>
-                      <el-form-item label="测试负责人" >
-                        <el-select value-key="label" v-model="testlistData.person"  placeholder="请选择测试负责人">
-                          <el-option
-                            v-for="item in options"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
-                          </el-option>
-                        </el-select>
-                      </el-form-item>
-                    </el-form>
-                    <div slot="footer" class="dialog-footer">
-                      <el-button @click="dialogFormVisible = false">取 消</el-button>
-                      <el-button type="primary" @click="handleSave">确 定</el-button>
-                    </div>
-                  </el-dialog>
                 </el-col>
               </template>
-
             </el-table-column>
           </el-table>
         </el-main>
       </el-container>
     </el-container>
+<!--    <addOr-Update :addOrUpdateVisible="addOrUpdateVisible"  :projectType="projectType"  v-on:close-page="addOrUpdateVisiblecancel" ></addOr-Update>-->
+    <addOr-Update  v-if="addOrUpdataDialog.visible"
+                   :visible="addOrUpdataDialog.visible"
+                   :title="addOrUpdataDialog.title"
+                   :item="addOrUpdataDialog.item"
+                   :action="addOrUpdataDialog.action"
+                   v-on:close-page="addOrUpdateVisiblecancel" @save-page="saveItem"></addOr-Update>
   </div>
 </template>
 
-
 <style>
-  .el-header {
-    background-color: #B3C0D1;
-    color: #333;
-    line-height: 60px;
+  .span {
+    color:#409EFF;
   }
   .el-aside {
     background-color: #B3C0D1;
@@ -170,48 +138,55 @@
   inputadreaa{
     display: inline;
   }
+
+
+  .col {
+     background: url('../assets/公司logo.png')   no-repeat;
+    position: fixed;
+    left: 0px;
+   }
+
+  /*.head2{*/
+  /*  background: url("../assets/topbg2014.jpg")  center center ;*/
+  /*  position: fixed;*/
+  /*}*/
+
 </style>
 <script  type="text/javascript"  >
 
 
-
+  // import imgUrl from '../assets/公司logo.bmp';
   import axios from 'axios';
+  import AddOrUpdate from './AddOrUpdate';
   export default {
+  components:
+  {
+    AddOrUpdate,
+
+  },
+
     data() {
-      // const item = {
-      //   componeyName
-      //   address
-      //   person
-      // };
-
       return {
-        dialogFormVisible:false,
-        // tableData: Array(20).fill(item),
+
+        //backgroundImgUrl: require('../assets/公司logo.bmp'),
+
         tableData:[],
-        componentName: '',
-        // address: '',
-        person: '',
-        id:'',
-        address:[{
-          name:"",
-          website:"",
-        }],
 
+        addOrUpdataDialog:
+          {
+            visible:false,
+            title:'新增|编辑' ,
+            item:{},
+            action:"add"
+          },
 
+        addOrUpdateVisible:false,
+        //按什么搜索
+        searchType:1,
         //搜索内容
         searchContant:"",
-        //测试列表数据
-        testlistData: {
-          componentName: '',//公司名称
-          person: '',
-          id:'',
-          address:[{
-            name:"",
-            website:"",
-          }]
-        },
-
-
+        //项目类型
+        projectType:"",
         options: [{
           value: '韦金节',
           label: '韦金节'
@@ -238,24 +213,32 @@
     },
 
       methods: {
-      //获取数据
-      getdata:function()
-      {
-        debugger;
-        axios.get("/API/apiSearch",
-          {
-            params:
-              {
-                searchContant: ""
-              }
-          }
-        ).then(res=>{
-          this.getadressinfo(res.data.result);
-        })
-      },
+        //获取数据
+        getdata: function () {
+          debugger;
+          axios.get("/API/apiSearch",
+            {
+              params:
+                {
+                  searchContant: "",
+                  searchType:1,
+                }
+            }
+          ).then(res => {
+            this.getadressinfo(res.data.result);
+          })
+        },
+
         //删除
         deletelist:function(deletId)
         {
+          debugger;
+          this.$confirm('此操作将永久删除, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+
           axios.get("/API/apiDelete",{
             params:
               {
@@ -265,31 +248,19 @@
             console.log("ok")
             this.getdata();
           })
-          alert("删除成功！");
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            });
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消删除'
+            });
+          });
         },
-        dialogFormVisible:function(e)
-        {
 
-        },
-        //保存
-        handleSave:function(e)
-        {
-          debugger;
-          axios.get("/API/apiAdd",{
-            params:
-              {
-                componentName:this.testlistData.componentName,
-                address:this.testlistData.address,
-                person:this.testlistData.person,
-              }
-          }).then(res=>{
-            // debugger;
-            console.log("ok")
-            this.dialogFormVisible = false
-            this.getdata();
-          })
-          alert("添加成功！");
-        },
+
         //搜索
         searchclick:function (e)
         {
@@ -297,12 +268,12 @@
           axios.get("/API/apiSearch",{
             params:
               {
-                searchContant:this.searchContant
+                searchContant:this.searchContant,
+                searchType:2,
               }
           }).then(res=>{
             debugger;
             console.log("ok")
-            this.dialogFormVisible = false
             this.getadressinfo(res.data.result);
           })
         },
@@ -311,24 +282,10 @@
            debugger;
           window.location.href=url;
         },
-        addadressitem:function ()
-        {
-          let obj = {
-            name:"",
-            website:"",
-          }
-          this.testlistData.address.push(obj)
-        },
-        deleteadressitem:function (index)
-        {
-          debugger;
-          if(index==0)return;
-          this.testlistData.address.splice(index,1)
-        },
+        // change :function(e) {
+        //   this.$forceUpdate()
+        // },
 
-        change :function(e) {
-          this.$forceUpdate()
-        },
         //处理地址数据
         getadressinfo:function (sourcedata)
         {
@@ -356,7 +313,120 @@
             });
             this.tableData[i].address= resultadress;
           };
+        },
+
+        slecttype:function (id)
+        {
+          debugger;
+          let aa=this.projectType;
+          axios.get("/API/apiSearch",{
+            params:
+              {
+                searchContant:id,
+                searchType:3,
+              }
+          }).then(res=>{
+            debugger;
+            console.log("ok")
+
+            this.getadressinfo(res.data.result);
+          })
+        },
+
+        //添加
+        addproject:function () {
+          this.addOrUpdataDialog={
+            visible:true,
+          }
+        },
+
+        //接受子组件的值
+        addOrUpdateVisiblecancel:function () {
+          debugger;
+          // this.addOrUpdateVisible=false;
+          this.addOrUpdataDialog={
+            visible:false,
+          }
+        },
+
+        //编辑
+        editlist:function (editdata,action) {
+          debugger;
+          this.addOrUpdataDialog={
+            title:action==='add'?'新增':'编辑' ,
+            item:editdata,
+            action:action,
+            visible:true,
+          }
+        },
+
+        //保存添加的数据
+
+        handleSave:function(param)
+        {
+          debugger;
+          axios.get("/API/apiAdd",{
+            params:
+              {
+                componeyName:param.componeyName,
+                address:param.address,
+                person:param.person,
+                remarks:param.remarks,
+                projectType:param.projectType,
+              }
+          }).then(res=>{
+            console.log("ok")
+          })
+          alert("添加成功！");
+          this.addOrUpdataDialog={
+            visible:false,
+          }
+        },
+
+        editSave:function (param) {
+          axios.get("/API/apiEdit",{
+            params:
+              {
+                componeyName:param.componeyName,
+                address:param.address,
+                person:param.person,
+                remarks:param.remarks,
+                projectType:param.projectType,
+                id:param.id,
+              }
+          }).then(res=>{
+            console.log("ok")
+          })
+          alert("修改成功！");
+          this.addOrUpdataDialog={
+            visible:false,
+          }
+        },
+
+
+
+
+        saveItem(param) {
+          debugger;
+          console.log('add edit', param)
+          const {
+            action = 'add',
+            item
+          } = this.addOrUpdataDialog
+          switch (action) {
+            case 'add':
+              this.handleSave(param),
+                this.getdata()
+              break
+            case 'edit':
+              this.editSave(param),
+                this.getdata()
+              break
+            default:
+              break
+          }
         }
+
       }
   }
 </script>

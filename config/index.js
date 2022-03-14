@@ -15,7 +15,7 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    //代理转发
+    //代理转发,效果就是将以/api字段起始的本地接口请求代理到9091
     proxyTable: {
       '/API':{
         target:'http://localhost:9091',
