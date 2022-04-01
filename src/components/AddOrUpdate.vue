@@ -17,14 +17,14 @@
       </el-form-item>
       <el-form v-for="(item,index) in testlistData.address" :key="index"  >
         <el-form-item   label="地址名称">
-          <el-input v-model="testlistData.address[index].name"  placeholder="请输入名称" style="width: 100px" @input="change(e)">
+          <el-input v-model="testlistData.address[index].name"  placeholder="请输入名称" style="width: 160px" @input="change(e)">
           </el-input>
         </el-form-item>
         <el-form-item  label="测试地址">
-          <el-input v-model="testlistData.address[index].website" placeholder="请输入测试地址" style="width: 350px" @input="change(e)" >
+          <el-input v-model="testlistData.address[index].website" placeholder="请输入测试地址" style="width: 300px" @input="change(e)" >
           </el-input>
         </el-form-item>
-        <el-button type="danger" size="medium"  @click="deleteadressitem(index)" >删除</el-button>
+        <el-button type="danger" size="medium" class="el-icon-delete" @click="deleteadressitem(index)" ></el-button>
       </el-form>
       <el-form>
         <el-form-item >
@@ -32,14 +32,8 @@
         </el-form-item>
       </el-form>
       <el-form-item label="测试负责人" >
-        <el-select value-key="label" v-model="testlistData.person"  placeholder="请选择测试负责人">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-        </el-select>
+        <el-input value-key="label" v-model="testlistData.person"  placeholder="请输入测试负责人">
+        </el-input>
       </el-form-item>
       <el-form-item>
         <el-form-item  label="备注" >
@@ -109,26 +103,7 @@
           if(index==0)return;
           this.testlistData.address.splice(index,1)
         },
-        //点击保存，向父组件传值
-        handleSave:function(e)
-        {
-          debugger;
-          axios.get("/API/apiAdd",{
-            params:
-              {
-                componeyName:this.testlistData.componeyName,
-                address:this.testlistData.address,
-                person:this.testlistData.person,
-                remarks:this.testlistData.remarks,
-                projectType:this.testlistData.projectType,
-              }
-          }).then(res=>{
-            console.log("ok")
-            this.getdata();
-          })
-          alert("添加成功！");
-          this.visible=false;
-        },
+
 
         //初始化当前表单
         initdata()
@@ -168,16 +143,8 @@
               break
           }
         },
-        save() {
-          console.log('save', this.testlistData)
-          this.$refs['testlistData'].validate((valid) => {
-            if (valid) {
-              this.$emit('save', {
-                ...this.testlistData
-              })
-            }
-          })
-        },
+
+
       },
 
     data: function () {
@@ -195,22 +162,7 @@
             projectType:"",
           }]
         },
-        options: [{
-          value: '韦金节',
-          label: '韦金节'
-        }, {
-          value: '李珊珊',
-          label: '李珊珊',
-        }, {
-          value: '彭慧',
-          label: '彭慧'
-        }, {
-          value: '黄银凤',
-          label: '黄银凤'
-        }, {
-          value: '韦小珍',
-          label: '韦小珍'
-        }],
+
 
         projectTypeoptions:[{
           value: '演示专用系统',
