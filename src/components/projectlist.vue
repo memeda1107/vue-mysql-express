@@ -1,21 +1,18 @@
 <template >
   <div>
-    <el-container style=" border: 1px solid #eee">
+    <el-container style=" border: 1px solid #eee;" >
       <el-header style="border: #2c3e50;height: 80px"  >
                 <el-row>
                   <el-col span="12" class="col" style="height: 80px; text-align:left;   ">
-<!--                    <span class="span" style="display:inline-block;font-size: 30px;">生产技术质量部测试系统列表</span>-->
                   </el-col>
-<!--                  <el-col span="12" class="head2" style="height: 80px;">-->
-<!--                  </el-col>-->
                 </el-row>
         <el-row style="height:35px;margin-top: 25px" >
             <div >
               <div style="float: left">
-                <el-button type="primary"  style="alignment: right;margin-left: 700px"  icon="el-icon-plus" v-on:click="addproject">添加</el-button>
+                <el-button type="primary"  style="alignment: right;margin-left: 700px"  icon="el-icon-plus" v-on:click="addproject('add')">添加</el-button>
               </div>
               <div style="float: left">
-                <el-input id="uuida9937b2c-fb4d-4ea7-84a2-0cca76828ea0"  v-model="searchContant"  style="width: 400px; height: 50px;alignment: right; font-size: 12px;margin-left: 30px"placeholder="请输入单位名称或系统地址" ></el-input>
+                <el-input id="uuida9937b2c-fb4d-4ea7-84a2-0cca76828ea0"  v-model="searchContant"  style="width: 400px; height: 50px;alignment: right; font-size: 12px;margin-left: 30px"placeholder="请输入单位名称或系统名称" ></el-input>
               </div>
               <div style="float: left">
                 <el-button id="uuid5dd302a9-5b35-40d7-9fb1-44449c8a4226"   style="alignment: left;margin-left: 20px" type="primary" icon="el-icon-search"  v-on:click="searchclick">搜索</el-button>
@@ -25,64 +22,64 @@
         <el-divider></el-divider>
       </el-header>
       <el-container>
-        <el-aside width="180px"style="background-color: rgb(238, 241, 246);margin-top: 15px" >
+        <el-aside width="180px"style="background-color: rgb(255,255,255);margin-top: 15px" >
           <el-menu :default-openeds="['1', '3']" style="text-align: left;">
             <el-menu-item index="1" v-model="projectType" v-on:click="slecttype(projectType='演示专用系统')" >
-              <i class="el-icon-document"></i>
+              <i class="el-icon-document" style="color: #3a8ee6"></i>
               <span slot="title">演示专用系统</span>
             </el-menu-item>
             <el-menu-item index="2" v-model="projectType" v-on:click="slecttype(projectType='综合管理系统')">
-              <i class="el-icon-menu"></i>
+              <i class="el-icon-menu" style="color: #3a8ee6"></i>
               <span slot="title">综合管理系统</span>
             </el-menu-item>
 
             <el-menu-item index="3" v-model="projectType" v-on:click="slecttype(projectType='广西院系统')">
-              <i class="el-icon-s-home"></i>
+              <i class="el-icon-s-home" style="color: #3a8ee6"></i>
               <span slot="title">广西院系统</span>
             </el-menu-item>
             <el-menu-item index="4"  v-model="projectType" v-on:click="slecttype(projectType='图档系统')">
-              <i class="el-icon-notebook-2"></i>
+              <i class="el-icon-notebook-2" style="color: #3a8ee6"></i>
               <span slot="title">图档系统</span>
             </el-menu-item>
             <el-menu-item index="5"  v-model="projectType" v-on:click="slecttype(projectType='办公和网站')">
-              <i class="el-icon-user-solid"></i>
+              <i class="el-icon-user-solid" style="color: #3a8ee6"></i>
               <span slot="title">办公和网站</span>
             </el-menu-item>
             <el-menu-item index="6" v-model="projectType" v-on:click="slecttype(projectType='移动APP')">
-              <i class="el-icon-phone"></i>
+              <i class="el-icon-phone" style="color: #3a8ee6"></i>
               <span slot="title">移动APP</span>
             </el-menu-item>
-            <el-menu-item index="7" v-model="projectType" v-on:click="slecttype(projectType='其他系统')">
-              <i class="el-icon-s-order"></i>
-              <span slot="title">其他系统</span>
+            <el-menu-item index="7" v-model="projectType" v-on:click="slecttype(projectType='内部研发')">
+              <i class="el-icon-s-order" style="color: #3a8ee6"></i>
+              <span slot="title">内部研发</span>
             </el-menu-item>
             <el-menu-item index="8"  v-model="projectType" v-on:click="slecttype(projectType='禅道')">
-              <i class="el-icon-s-help"></i>
+              <i class="el-icon-s-help" style="color: #3a8ee6"></i>
               <span slot="title">禅道</span>
             </el-menu-item>
             <el-menu-item index="9" v-model="projectType" v-on:click="slecttype(projectType='界面规范示例')">
-              <i class="el-icon-upload"></i>
+              <i class="el-icon-upload" style="color: #3a8ee6"></i>
               <span slot="title">界面规范示例</span>
             </el-menu-item>
-            <el-menu-item index="10" v-model="projectType" v-on:click="slecttype(projectType='内部研发')">
-              <i class="el-icon-s-platform"></i>
-              <span slot="title">内部研发</span>
+            <el-menu-item index="10" v-model="projectType" v-on:click="slecttype(projectType='其他系统')">
+              <i class="el-icon-s-platform" style="color: #3a8ee6"></i>
+              <span slot="title">其他系统</span>
             </el-menu-item>
           </el-menu>
         </el-aside>
         <el-main   style="width:100%">
           <el-table
-            :data="tableData"
+            :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
             stripe
             style="width: 100%" :row-style="{height:'15px'}" :cell-style="{padding:'5px'}">
             <el-table-column
               prop="componeyName"
               label="单位名称"
-              width="400" header-align="center">
+              width="250" header-align="center">
             </el-table-column>
             <el-table-column
               prop="address"
-              label="系统地址"
+              label="系统名称"
               header-align="center">
               <template slot-scope="id"  >
                 <el-link  id="id.row.id" type="primary" target="_blank"  v-for="(user,i) in id.row.address":key="i" :href="user.website" :underline="false" >{{ user.name+'、'}}</el-link>
@@ -91,7 +88,7 @@
             <el-table-column
               prop="person"
               label="测试负责人"
-              width="100" header-align="center">
+              width="200" header-align="center">
             </el-table-column>
             <el-table-column
               prop="remarks"
@@ -116,13 +113,24 @@
           </el-table>
         </el-main>
       </el-container>
+      <el-footer>
+        <el-pagination style="border:0;"
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                       :current-page="currentPage"
+                       :page-sizes="[15, 30, 50, 100]"
+                       :page-size="pagesize"
+                       layout="total, sizes, prev, pager, next, jumper"
+                       :total="tableData.length">
+        </el-pagination>
+      </el-footer>
     </el-container>
     <addOr-Update  v-if="addOrUpdataDialog.visible"
                    :visible="addOrUpdataDialog.visible"
                    :title="addOrUpdataDialog.title"
                    :item="addOrUpdataDialog.item"
                    :action="addOrUpdataDialog.action"
-                   v-on:close-page="addOrUpdateVisiblecancel" @save-page="saveItem"></addOr-Update>
+                   v-on:close-page="addOrUpdateVisiblecancel" @save-page="saveItem" @close-pageX="addOrUpdateVisiblecancel"></addOr-Update>
   </div>
 </template>
 
@@ -140,7 +148,7 @@
 
 
   .col {
-     background: url('../assets/公司logo.png')   no-repeat;
+     background: url('../assets/8桂能软件LOGO.png')   no-repeat;
     position: fixed;
     left: 0px;
    }
@@ -160,15 +168,13 @@
     data() {
       return {
         tableData:[],
-
         addOrUpdataDialog:
           {
             visible:false,
             title:'新增|编辑' ,
             item:{},
-            action:"add"
+            action:"add",
           },
-
         addOrUpdateVisible:false,
         //按什么搜索
         searchType:1,
@@ -176,23 +182,10 @@
         searchContant:"",
         //项目类型
         projectType:"",
-        options: [{
-          value: '韦金节',
-          label: '韦金节'
-        }, {
-          value: '李珊珊',
-          label: '李珊珊',
-        }, {
-          value: '彭慧',
-          label: '彭慧'
-        }, {
-          value: '黄银凤',
-          label: '黄银凤'
-        }, {
-          value: '韦小珍',
-          label: '韦小珍'
-        }],
-        value: ''
+
+        //分页相关数据
+        currentPage:1, //初始页
+        pagesize:15,    //    每页的数据
       }
     },
     created()//初始化
@@ -204,7 +197,6 @@
       methods: {
         //获取数据
         getdata: function () {
-          debugger;
           axios.get("/API/apiSearch",
             {
               params:
@@ -221,7 +213,6 @@
         //删除
         deletelist:function(deletId)
         {
-          debugger;
           this.$confirm('此操作将永久删除, 是否继续?', '提示', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
@@ -250,7 +241,6 @@
         //搜索
         searchclick:function (e)
         {
-           debugger;
           axios.get("/API/apiSearch",{
             params:
               {
@@ -258,8 +248,6 @@
                 searchType:2,
               }
           }).then(res=>{
-            debugger;
-            console.log("ok")
             this.getadressinfo(res.data.result);
           })
         },
@@ -303,8 +291,6 @@
 
         slecttype:function (id)
         {
-          debugger;
-          let aa=this.projectType;
           axios.get("/API/apiSearch",{
             params:
               {
@@ -312,24 +298,21 @@
                 searchType:3,
               }
           }).then(res=>{
-            debugger;
-            console.log("ok")
-
             this.getadressinfo(res.data.result);
           })
         },
 
         //添加
-        addproject:function () {
+        addproject:function (action) {
+          debugger;
           this.addOrUpdataDialog={
             visible:true,
+            title:action==='add'?'新增':'编辑' ,
           }
         },
 
         //接受子组件的值
         addOrUpdateVisiblecancel:function () {
-          debugger;
-          // this.addOrUpdateVisible=false;
           this.addOrUpdataDialog={
             visible:false,
           }
@@ -337,7 +320,6 @@
 
         //编辑
         editlist:function (editdata,action) {
-          debugger;
           this.addOrUpdataDialog={
             title:action==='add'?'新增':'编辑' ,
             item:editdata,
@@ -350,7 +332,6 @@
 
         handleSave:function(param)
         {
-          debugger;
           axios.get("/API/apiAdd",{
             params:
               {
@@ -361,8 +342,8 @@
                 projectType:param.projectType,
               }
           }).then(res=>{
-            console.log("ok")
           })
+          this.getdata();
           alert("添加成功！");
           this.addOrUpdataDialog={
             visible:false,
@@ -381,37 +362,40 @@
                 id:param.id,
               }
           }).then(res=>{
-            console.log("ok")
+
           })
+          this.getdata();
           alert("修改成功！");
           this.addOrUpdataDialog={
             visible:false,
           }
+
         },
 
-
-
-
         saveItem(param) {
-          debugger;
-          console.log('add edit', param)
           const {
             action = 'add',
             item
           } = this.addOrUpdataDialog
           switch (action) {
             case 'add':
-              this.handleSave(param),
-                this.getdata()
+              this.handleSave(param);
               break
             case 'edit':
-              this.editSave(param),
-                this.getdata()
+              this.editSave(param);
               break
             default:
               break
           }
-        }
+        },
+
+        //分页事件响应
+        handleCurrentChange: function(currentPage){
+          this.currentPage = currentPage;
+        },
+        handleSizeChange: function (size) {
+          this.pagesize = size;
+        },
 
       }
   }

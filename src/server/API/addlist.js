@@ -7,7 +7,6 @@ let jsonParser = bodyParser.json()
 
 // nodeJs接口
 router.get('/',jsonParser, function(req, res, next){
-  console.log(req.query.address);
   let comp=req.query.componeyName;
   let addr='';
   let per=req.query.person;
@@ -25,8 +24,6 @@ router.get('/',jsonParser, function(req, res, next){
     type,
   ];
 
-  console.log("insert information .......")
-  console.log(req.query.remarks)
   new Database().getHnfAdd(sqlParams,res);
 });
 

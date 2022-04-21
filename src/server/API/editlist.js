@@ -14,7 +14,7 @@ router.get('/',jsonParser, function(req, res, next){
   let rek=req.query.remarks;
   let type=req.query.projectType;
   let id=req.query.id;
-  console.log(req.query)
+
   req.query.address.forEach(function(value,i){
     let obj=JSON.parse(value)
     addr=addr+'$'+obj.name+';'+obj.website;

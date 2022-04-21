@@ -17,22 +17,22 @@ class Database
       let sql;
       if(searchType==1)
       {
-         sql="select * from testlist";
+         sql="select * from testlist order by id desc";
       }
       else if(searchType==2)
       {
-         sql  ="select * from testlist where concat(componeyName,address)like?"
+         sql  ="select * from testlist where concat(componeyName,address)like concat('%',?,'%')  order by id desc "
       }
       else if(searchType==3)
       {
-         sql="select * from testlist where projectType like? "
+         sql="select * from testlist where projectType = ? order by id desc "
       }
       return sql;
     }
     //查询
   getHnf(req,res,searchType)
     {
-      console.log("开始查询")
+
       let resultData = {};
       let searchcontent = req.query.searchContant;
       let sql = this.getsearchType(searchType);
@@ -40,10 +40,11 @@ class Database
           if (err) {
             console.log('   mysql-pool connected fail.');
             console.error('   ' + (err.stack || err));
+            conn.release();//释放资源；
           } else {
-            conn.query(sql, "%"+searchcontent+"%",function (qerr, result) {
+            // conn.query(sql, "%"+searchcontent+"%",function (qerr, result) {
+            conn.query(sql,searchcontent,function (qerr, result) {
               resultData = result;
-              resultData.reverse();
               conn.release();//释放资源
               res.json({
                 status: '1',
@@ -65,6 +66,7 @@ class Database
           console.log("err");
           console.log("no such item");
           res.send(err)
+          conn.release();//释放资源；
         }
         else
         {
@@ -81,6 +83,7 @@ class Database
       if(err){
         console.log("err");
         res.send(err)
+        conn.release();//释放资源；
       }
       else {
         conn.query(sql,req);
@@ -93,19 +96,19 @@ class Database
 
   //修改列表
   getHnfEdit(req,res){
-    console.log("修改修改修改")
-    console.log(req);
     let sql  ="UPDATE testlist set componeyName=?,address=?,person=?,remarks=?,projectType=? where id=?"
     pool.getConnection(function (err,conn) {
       if(err){
         console.log("err");
         res.send(err)
+        conn.release();//释放资源；
       }
       else {
         conn.query(sql,req);
         conn.release();//释放资源
       }
     })
+
   }
 }
 // 把databasse导出
