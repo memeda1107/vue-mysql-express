@@ -1,9 +1,9 @@
 <template>
 <div  >
-  <el-dialog title="新增测试系统" :visible="this.visible" label-width="100px" :append-to-body="true" >
+  <el-dialog title="新增测试系统" :visible="this.visible" label-width="100px" :append-to-body="true" @close="handleClose" customClass="customWidth" >
     <el-form  :inline="true" >
-      <el-form-item  label="项目类型" >
-        <el-select value-key="label" v-model="testlistData.projectType"  placeholder="请选择项目类型">
+      <el-form-item  label="项目类型" style="width: 465px" >
+        <el-select id="typeselect" value-key="label" v-model="testlistData.projectType"  placeholder="请选择项目类型" >
           <el-option
             v-for="item in projectTypeoptions"
             :key="item.value"
@@ -13,15 +13,15 @@
         </el-select>
       </el-form-item>
       <el-form-item  label="单位名称" >
-        <el-input  v-model="testlistData.componeyName" style="width: 550px" ></el-input>
+        <el-input  v-model="testlistData.componeyName" style="width: 400px" ></el-input>
       </el-form-item>
       <el-form v-for="(item,index) in testlistData.address" :key="index"  >
-        <el-form-item   label="地址名称">
-          <el-input v-model="testlistData.address[index].name"  placeholder="请输入名称" style="width: 160px" @input="change(e)">
+        <el-form-item   label="系统名称">
+          <el-input v-model="testlistData.address[index].name"  placeholder="请输入系统名称" style="width: 400px" @input="change(e)">
           </el-input>
         </el-form-item>
         <el-form-item  label="测试地址">
-          <el-input v-model="testlistData.address[index].website" placeholder="请输入测试地址" style="width: 300px" @input="change(e)" >
+          <el-input v-model="testlistData.address[index].website" placeholder="请输入测试地址" style="width: 400px" @input="change(e)" >
           </el-input>
         </el-form-item>
         <el-button type="danger" size="medium" class="el-icon-delete" @click="deleteadressitem(index)" ></el-button>
@@ -50,13 +50,20 @@
 </template>
 
 
+<style>
+  .customWidth
+  {
+    width:75%;
+  }
+
+</style>
+
+
 <script type="text/javascript" >
   import axios from 'axios';
   export default
   {
     props:{
-
-
       //标题
       title:{
         default:'新增',
@@ -72,13 +79,14 @@
         type: Boolean,
         default: false
       },
+
       //被选中的数据
       item:{
         type:Object,
         default()
         {
-        }
-      }
+        },
+      },
     },
 
 
@@ -99,9 +107,28 @@
         },
         deleteadressitem:function (index)
         {
-          debugger;
-          if(index==0)return;
-          this.testlistData.address.splice(index,1)
+          this.$confirm('是否删除?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            if(index==0)return;
+            this.testlistData.address.splice(index,1);
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            });
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消删除'
+            });
+          });
+        },
+        //窗口关闭触发
+        handleClose(){
+          // 子组件调用父组件方法，并传递参数
+          this.$emit('close-pageX')
         },
 
 
@@ -114,8 +141,6 @@
         //初始化表单
         initForm() {
           // 取出这一行的数据里的数据,填入表单中显示
-
-          debugger;
           const {
             componeyName = null,
             address = null,
@@ -143,8 +168,6 @@
               break
           }
         },
-
-
       },
 
     data: function () {
@@ -158,9 +181,9 @@
           address:[{
             name:"",
             website:"",
-            remarks:"",
-            projectType:"",
-          }]
+          }],
+          remarks:"",
+          projectType:"",
         },
 
 
@@ -183,22 +206,20 @@
           value: '移动APP',
           label: '移动APP'
         }, {
-          value: '其他系统',
-          label: '其他系统'
-        }, {
+          value: '内部研发',
+          label: '内部研发'
+        },{
           value: '禅道',
           label: '禅道'
         }, {
           value: '界面规范示例',
           label: '界面规范示例'
-        }, {
-          value: '内部研发',
-          label: '内部研发'
-        }],
+        },{
+          value: '其他系统',
+          label: '其他系统'
+        },],
       }
-
     }
-
   }
 
 </script>
