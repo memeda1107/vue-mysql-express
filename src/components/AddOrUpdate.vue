@@ -79,6 +79,10 @@
         type: Boolean,
         default: false
       },
+      projectType:{
+        type:String,
+        default:'',
+      },
 
       //被选中的数据
       item:{
@@ -130,8 +134,6 @@
           // 子组件调用父组件方法，并传递参数
           this.$emit('close-pageX')
         },
-
-
         //初始化当前表单
         initdata()
         {
@@ -140,6 +142,7 @@
 
         //初始化表单
         initForm() {
+          debugger;
           // 取出这一行的数据里的数据,填入表单中显示
           const {
             componeyName = null,
@@ -153,6 +156,7 @@
           this.item || {}
           switch (this.action) {
             case 'add':
+              this.testlistData.projectType=this.projectType;
               break
             case 'edit':
               this.testlistData = {

@@ -130,6 +130,7 @@
                    :title="addOrUpdataDialog.title"
                    :item="addOrUpdataDialog.item"
                    :action="addOrUpdataDialog.action"
+                   :projectType="addOrUpdataDialog.projectType"
                    v-on:close-page="addOrUpdateVisiblecancel" @save-page="saveItem" @close-pageX="addOrUpdateVisiblecancel"></addOr-Update>
   </div>
 </template>
@@ -174,6 +175,7 @@
             title:'新增|编辑' ,
             item:{},
             action:"add",
+            projectType:"",
           },
         addOrUpdateVisible:false,
         //按什么搜索
@@ -182,7 +184,6 @@
         searchContant:"",
         //项目类型
         projectType:"",
-
         //分页相关数据
         currentPage:1, //初始页
         pagesize:15,    //    每页的数据
@@ -256,9 +257,6 @@
            debugger;
           window.location.href=url;
         },
-        // change :function(e) {
-        //   this.$forceUpdate()
-        // },
 
         //处理地址数据
         getadressinfo:function (sourcedata)
@@ -304,10 +302,10 @@
 
         //添加
         addproject:function (action) {
-          debugger;
           this.addOrUpdataDialog={
             visible:true,
             title:action==='add'?'新增':'编辑' ,
+            projectType:this.projectType,
           }
         },
 
@@ -315,6 +313,7 @@
         addOrUpdateVisiblecancel:function () {
           this.addOrUpdataDialog={
             visible:false,
+
           }
         },
 
@@ -326,6 +325,7 @@
             action:action,
             visible:true,
           }
+
         },
 
         //保存添加的数据
