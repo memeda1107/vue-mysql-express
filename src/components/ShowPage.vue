@@ -11,7 +11,7 @@
             <div style="width: 800px">
             </div>
             <div style="float:right" >
-              <el-input id="uuida9937b2c-fb4d-4ea7-84a2-0cca76828ea0"  v-model="searchContant"  style="width: 400px; height: 50px;alignment: right; font-size: 12px;margin-left: 30px"placeholder="请输入单位名称或系统名称" ></el-input>
+              <el-input id="uuida9937b2c-fb4d-4ea7-84a2-0cca76828ea0"  v-model="searchContant"  style="width: 400px; height: 50px;alignment: right; font-size: 12px;margin-left: 30px"placeholder="请输入单位名称或系统名称"  @keyup.enter.native="searchclick"></el-input>
             </div>
             <div style="float: left">
               <el-button id="uuid5dd302a9-5b35-40d7-9fb1-44449c8a4226"   style="alignment: left;margin-left: 20px" type="primary" icon="el-icon-search"  v-on:click="searchclick">搜索</el-button>
@@ -74,7 +74,7 @@
             <el-table-column
               prop="componeyName"
               label="单位名称"
-              width="300" header-align="center">
+              width="340" header-align="center">
             </el-table-column>
             <el-table-column
               prop="address"
@@ -87,7 +87,7 @@
             <el-table-column
               prop="person"
               label="测试负责人"
-              width="300" header-align="center">
+              width="250" header-align="center" align="center">
             </el-table-column>
           </el-table>
         </el-main>
