@@ -12,7 +12,7 @@
                 <el-button type="primary"  style="alignment: right;margin-left: 700px"  icon="el-icon-plus" v-on:click="addproject('add')">添加</el-button>
               </div>
               <div style="float: left">
-                <el-input id="uuida9937b2c-fb4d-4ea7-84a2-0cca76828ea0"  v-model="searchContant"  style="width: 400px; height: 50px;alignment: right; font-size: 12px;margin-left: 30px"placeholder="请输入单位名称或系统名称" ></el-input>
+                <el-input id="uuida9937b2c-fb4d-4ea7-84a2-0cca76828ea0"  v-model="searchContant"  style="width: 400px; height: 50px;alignment: right; font-size: 12px;margin-left: 30px"placeholder="请输入单位名称或系统名称" @keyup.enter.native="searchclick"></el-input>
               </div>
               <div style="float: left">
                 <el-button id="uuid5dd302a9-5b35-40d7-9fb1-44449c8a4226"   style="alignment: left;margin-left: 20px" type="primary" icon="el-icon-search"  v-on:click="searchclick">搜索</el-button>

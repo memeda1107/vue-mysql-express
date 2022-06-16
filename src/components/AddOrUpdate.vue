@@ -1,6 +1,6 @@
 <template>
 <div  >
-  <el-dialog title="新增测试系统" :visible="this.visible" label-width="100px" :append-to-body="true" @close="handleClose" customClass="customWidth" >
+  <el-dialog title="新增测试系统" :visible="this.visible" :close-on-click-modal="false" label-width="100px" :append-to-body="true" @close="handleClose" customClass="customWidth" >
     <el-form  :inline="true" >
       <el-form-item  label="项目类型" style="width: 465px" >
         <el-select id="typeselect" value-key="label" v-model="testlistData.projectType"  placeholder="请选择项目类型" >
@@ -112,7 +112,7 @@
             cancelButtonText: '取消',
             type: 'warning'
           }).then(() => {
-            if(index==0)return;
+            // if(index==0)return;
             this.testlistData.address.splice(index,1);
             this.$message({
               type: 'success',
